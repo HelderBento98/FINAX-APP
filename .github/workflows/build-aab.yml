@@ -30,13 +30,18 @@ jobs:
         env:
           KEYSTORE_BASE64: ${{ secrets.FINAX_KEYSTORE_BASE64 }}
         run: |
-          if [ -n "$KEYSTORE_BASE64" ]; then
-            # Strip any whitespace/newlines that may have been introduced when
-            # pasting the secret, then decode.
-            printf '%s' "$KEYSTORE_BASE64" | tr -d '[:space:]' | base64 -d > "$RUNNER_TEMP/finax-release.jks"
+          # Strip any whitespace/newlines that may have been introduced when
+          # pasting the secret, then decode. If decoding fails or the secret is
+          # missing, fall back to an unsigned build instead of failing the job.
+          if [ -n "$KEYSTORE_BASE64" ] && \
+             printf '%s' "$KEYSTORE_BASE64" | tr -d '[:space:]' | base64 -d > "$RUNNER_TEMP/finax-release.jks" 2>/dev/null && \
+             [ -s "$RUNNER_TEMP/finax-release.jks" ]; then
             echo "configured=true" >> "$GITHUB_OUTPUT"
+            echo "Keystore decoded successfully — building a SIGNED release."
           else
+            rm -f "$RUNNER_TEMP/finax-release.jks"
             echo "configured=false" >> "$GITHUB_OUTPUT"
+            echo "::warning::FINAX_KEYSTORE_BASE64 missing or invalid — building an UNSIGNED release AAB. Re-create the secret from finax-keystore-base64.txt to get a signed bundle."
           fi
 
       - name: Build signed release AAB
