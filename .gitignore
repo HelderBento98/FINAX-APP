@@ -9,6 +9,11 @@ captures/
 .externalNativeBuild/
 .cxx/
 
+# Signing keys — NEVER commit keystores
+*.jks
+*.keystore
+keystore.properties
+
 # Logs / OS
 *.log
 .DS_Store
