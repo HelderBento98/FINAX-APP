@@ -1,0 +1,3 @@
+-keep class com.finax.app.data.model.** { *; }
+-keepattributes Signature
+-keepattributes *Annotation*

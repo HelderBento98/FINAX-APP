@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Finax</string>
+    <string name="channel_reminders">Compromissos</string>
+    <string name="channel_reminders_desc">Notificações de compromissos agendados</string>
+</resources>
