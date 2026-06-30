@@ -5,6 +5,9 @@ on:
     branches: [ main ]
   workflow_dispatch:
 
+permissions:
+  contents: write
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -73,3 +76,23 @@ jobs:
           name: finax-debug-apk
           path: app/build/outputs/apk/debug/*.apk
           if-no-files-found: error
+
+      - name: Collect build outputs for the release
+        run: |
+          mkdir -p release-files
+          cp app/build/outputs/bundle/release/*.aab release-files/finax-release.aab
+          cp app/build/outputs/apk/debug/*.apk release-files/finax-debug.apk
+          ls -la release-files
+
+      - name: Publish files to a GitHub Release (easy 1-click download)
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: latest-build
+          name: Finax — última build
+          body: |
+            Build automática do app Finax.
+            - **finax-release.aab** → enviar para a Google Play Store
+            - **finax-debug.apk** → instalar direto no celular para testar
+          files: |
+            release-files/finax-release.aab
+            release-files/finax-debug.apk
