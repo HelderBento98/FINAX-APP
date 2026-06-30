@@ -276,7 +276,7 @@ fun LembreteItem(lembrete: Lembrete, onDelete: () -> Unit, onWhatsApp: () -> Uni
                     .size(28.dp)
                     .background(Color(0xFFDCFCE7), CircleShape)
             ) {
-                Icon(Icons.Default.WhatsApp, null, tint = Color(0xFF16A34A), modifier = Modifier.size(14.dp))
+                Icon(Icons.Default.Chat, null, tint = Color(0xFF16A34A), modifier = Modifier.size(14.dp))
             }
         }
 

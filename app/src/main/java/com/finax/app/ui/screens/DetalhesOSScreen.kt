@@ -256,12 +256,13 @@ fun DetailField(label: String, value: String, valueColor: Color = Color(0xFF1C1C
     Column(
         modifier = Modifier
             .fillMaxWidth()
-            .border(bottom = BorderStroke(0.8.dp, Color(0xFFF0F0F0)))
             .padding(bottom = 8.dp)
     ) {
         Text(label, fontSize = 11.sp, fontWeight = FontWeight.SemiBold, color = IosSecondaryText, letterSpacing = 0.5.sp)
         Spacer(Modifier.height(4.dp))
         Text(value, fontSize = 15.sp, fontWeight = FontWeight.Medium, color = valueColor)
+        Spacer(Modifier.height(8.dp))
+        HorizontalDivider(color = Color(0xFFF0F0F0), thickness = 0.8.dp)
     }
 }
 

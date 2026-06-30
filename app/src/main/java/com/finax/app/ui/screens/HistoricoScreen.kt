@@ -126,11 +126,14 @@ fun StatusCountCard(label: String, count: Int, color: Color, onClick: () -> Unit
                 Text("SERVIÇOS", fontSize = 11.sp, fontWeight = FontWeight.SemiBold, color = IosSecondaryText, letterSpacing = 0.5.sp)
                 Text(label, fontSize = 17.sp, fontWeight = FontWeight.Bold, color = color)
             }
-            Box(
-                modifier = Modifier
-                    .border(start = BorderStroke(1.dp, Color(0xFFF0F0F0)))
-                    .padding(start = 20.dp)
-            ) {
+            Row(verticalAlignment = Alignment.CenterVertically) {
+                Box(
+                    modifier = Modifier
+                        .width(1.dp)
+                        .height(48.dp)
+                        .background(Color(0xFFF0F0F0))
+                )
+                Spacer(Modifier.width(20.dp))
                 Text(count.toString(), fontSize = 48.sp, fontWeight = FontWeight.Light, color = color)
             }
         }
