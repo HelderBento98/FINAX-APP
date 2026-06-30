@@ -1,9 +1,11 @@
 package com.finax.app.ui.navigation
 
+import android.app.Activity
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavType
@@ -23,6 +25,21 @@ fun AppNavigation() {
     val navController = rememberNavController()
     val viewModel: AppViewModel = viewModel()
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
+    val gate by viewModel.gateState.collectAsStateWithLifecycle()
+    val products by viewModel.products.collectAsStateWithLifecycle()
+    val context = LocalContext.current
+
+    // Access gate: when the free trial has ended and there is no active
+    // subscription, block the app behind the paywall.
+    if (!gate.loading && !gate.hasAccess) {
+        PaywallScreen(
+            products = products,
+            trialDaysLeft = gate.trialDaysLeft,
+            onSubscribe = { pd -> (context as? Activity)?.let { viewModel.subscribe(it, pd) } },
+            onRestore = { viewModel.refreshPurchases() }
+        )
+        return
+    }
 
     val navBackStackEntry by navController.currentBackStackEntryAsState()
     val currentRoute = navBackStackEntry?.destination?.route

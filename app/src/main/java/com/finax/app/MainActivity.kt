@@ -34,4 +34,10 @@ class MainActivity : ComponentActivity() {
             }
         }
     }
+
+    override fun onResume() {
+        super.onResume()
+        // Re-check the subscription state (e.g. after returning from the Play purchase flow).
+        (application as? FinaxApp)?.billingManager?.queryPurchases()
+    }
 }

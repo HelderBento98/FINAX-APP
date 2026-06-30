@@ -13,8 +13,8 @@ android {
         applicationId = "com.finax.app"
         minSdk = 26
         targetSdk = 35
-        versionCode = 1
-        versionName = "1.0"
+        versionCode = 2
+        versionName = "1.1"
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
@@ -85,6 +85,9 @@ dependencies {
 
     // Gson
     implementation("com.google.code.gson:gson:2.10.1")
+
+    // Google Play Billing (assinaturas)
+    implementation("com.android.billingclient:billing-ktx:7.1.1")
 
     // Coil (images + QR code loading)
     implementation("io.coil-kt:coil-compose:2.6.0")

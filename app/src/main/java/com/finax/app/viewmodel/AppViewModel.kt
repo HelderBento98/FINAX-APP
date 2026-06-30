@@ -1,9 +1,12 @@
 package com.finax.app.viewmodel
 
+import android.app.Activity
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.room.Room
+import com.android.billingclient.api.ProductDetails
+import com.finax.app.FinaxApp
 import com.finax.app.data.db.AppDatabase
 import com.finax.app.data.model.Lembrete
 import com.finax.app.data.model.OrdemServico
@@ -15,12 +18,23 @@ import kotlinx.coroutines.launch
 import java.util.Calendar
 import java.util.UUID
 
+const val TRIAL_DAYS = 30
+
 data class AppUiState(
     val ordens: List<OrdemServico> = emptyList(),
     val lembretes: List<Lembrete> = emptyList(),
     val userProfile: UserProfile = UserProfile(),
     val selectedMonth: Int = Calendar.getInstance().get(Calendar.MONTH),
     val selectedYear: Int = Calendar.getInstance().get(Calendar.YEAR)
+)
+
+/** Whether the user may use the app: either inside the free trial or subscribed. */
+data class GateState(
+    val loading: Boolean = true,
+    val hasAccess: Boolean = false,
+    val isSubscribed: Boolean = false,
+    val trialActive: Boolean = false,
+    val trialDaysLeft: Int = 0
 )
 
 class AppViewModel(application: Application) : AndroidViewModel(application) {
@@ -37,8 +51,48 @@ class AppViewModel(application: Application) : AndroidViewModel(application) {
         UserPreferences(application)
     )
 
+    private val billingManager = (application as FinaxApp).billingManager
+
     private val _selectedMonth = MutableStateFlow(Calendar.getInstance().get(Calendar.MONTH))
     private val _selectedYear = MutableStateFlow(Calendar.getInstance().get(Calendar.YEAR))
+
+    init {
+        viewModelScope.launch { repository.ensureTrialStarted() }
+        billingManager.queryPurchases()
+    }
+
+    /** Subscription products available for purchase (prices come from Google Play). */
+    val products: StateFlow<List<ProductDetails>> = billingManager.products
+
+    /** Access gate combining the 30-day free trial with the Play subscription state. */
+    val gateState: StateFlow<GateState> = combine(
+        repository.trialStartFlow,
+        billingManager.isSubscribed
+    ) { trialStart, subscribed ->
+        val daysUsed = if (trialStart <= 0L) 0
+        else ((System.currentTimeMillis() - trialStart) / 86_400_000L).toInt()
+        val daysLeft = (TRIAL_DAYS - daysUsed).coerceAtLeast(0)
+        val trialActive = trialStart <= 0L || daysLeft > 0
+        GateState(
+            loading = false,
+            isSubscribed = subscribed,
+            trialActive = trialActive,
+            trialDaysLeft = daysLeft,
+            hasAccess = subscribed || trialActive
+        )
+    }.stateIn(
+        scope = viewModelScope,
+        started = SharingStarted.WhileSubscribed(5000),
+        initialValue = GateState()
+    )
+
+    fun subscribe(activity: Activity, productDetails: ProductDetails) {
+        billingManager.launchPurchase(activity, productDetails)
+    }
+
+    fun refreshPurchases() {
+        billingManager.queryPurchases()
+    }
 
     val uiState: StateFlow<AppUiState> = combine(
         repository.ordensFlow,

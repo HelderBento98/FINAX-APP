@@ -17,6 +17,9 @@ class AppRepository(
     val ordensFlow: Flow<List<OrdemServico>> = ordemServicoDao.getAllFlow()
     val lembretesFlow: Flow<List<Lembrete>> = lembreteDao.getAllFlow()
     val userProfileFlow: Flow<UserProfile> = userPreferences.userProfileFlow
+    val trialStartFlow: Flow<Long> = userPreferences.trialStartFlow
+
+    suspend fun ensureTrialStarted(): Long = userPreferences.ensureTrialStarted()
 
     suspend fun addOrdem(os: OrdemServico) = ordemServicoDao.insert(os)
 
