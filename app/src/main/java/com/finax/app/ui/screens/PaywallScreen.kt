@@ -39,7 +39,7 @@ fun PaywallScreen(
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(IosBackground)
+            .background(AppBgGradient)
             .verticalScroll(rememberScrollState())
             .padding(horizontal = 24.dp)
             .padding(top = 48.dp, bottom = 32.dp),

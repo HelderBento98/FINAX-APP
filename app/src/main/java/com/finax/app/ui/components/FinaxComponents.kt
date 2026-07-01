@@ -67,7 +67,7 @@ fun SubScreenHeader(
     title: String,
     onBack: () -> Unit,
     modifier: Modifier = Modifier,
-    accent: Color = IosBlue,
+    accent: Color = TextPrimary,
     trailing: (@Composable () -> Unit)? = null
 ) {
     Card(

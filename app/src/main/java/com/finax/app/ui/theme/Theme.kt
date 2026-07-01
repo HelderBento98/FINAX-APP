@@ -20,12 +20,16 @@ val TextPrimary = Color(0xFF1C1C1E)
 val SurfaceMuted = Color(0xFFF7F7F9)
 val HairlineColor = Color(0xFFF0F0F2)
 
-// Brand gradient (blue -> indigo) used on primary calls to action.
-val BrandStart = Color(0xFF0A84FF)
-val BrandEnd = Color(0xFF5E5CE6)
+// Brand gradient — a clean, modern blue (the app's visual identity).
+val BrandStart = Color(0xFF2E90FA)
+val BrandEnd = Color(0xFF1366D6)
 
 val BrandGradient: Brush
-    get() = Brush.horizontalGradient(listOf(BrandStart, BrandEnd))
+    get() = Brush.verticalGradient(listOf(BrandStart, BrandEnd))
+
+// Subtle app backdrop — a very light, cool gradient for depth (not flat).
+val AppBgGradient: Brush
+    get() = Brush.verticalGradient(listOf(Color(0xFFF6F8FB), Color(0xFFECEFF4)))
 
 private val FinaxColorScheme = lightColorScheme(
     primary = IosBlue,
