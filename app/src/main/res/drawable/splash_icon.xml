@@ -1,0 +1,27 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="1000"
+    android:viewportHeight="1000">
+
+    <!-- FINAX mark for the splash icon (extra padding so it sits inside the
+         circular splash keyline). -->
+    <group
+        android:pivotX="516.8"
+        android:pivotY="469.0"
+        android:scaleX="0.45"
+        android:scaleY="0.45"
+        android:translateX="-16.8"
+        android:translateY="31.0">
+
+        <path
+            android:fillColor="#FFFFFF"
+            android:pathData="M813.4,111.4 L810.8,257.4 L769.4,226.6 L468.0,622.0 L244.4,320.6 L341.2,320.6 L468.8,492.4 L708.2,177.6 L672.6,149.6 Z" />
+        <path
+            android:fillColor="#FFFFFF"
+            android:pathData="M391.4,597.2 L440.4,663.2 L318.0,826.6 L220.2,826.6 Z" />
+        <path
+            android:fillColor="#FFFFFF"
+            android:pathData="M549.0,595.6 L498.8,662.2 L618.6,826.6 L714.4,826.6 Z" />
+    </group>
+</vector>
