@@ -1,20 +1,15 @@
 package com.finax.app.ui.components
 
-import androidx.compose.animation.AnimatedVisibility
-import androidx.compose.animation.expandHorizontally
-import androidx.compose.animation.fadeIn
-import androidx.compose.animation.fadeOut
-import androidx.compose.animation.shrinkHorizontally
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -45,55 +40,46 @@ fun isNavActive(itemRoute: String, currentRoute: String?): Boolean {
 
 @Composable
 fun BottomNav(currentRoute: String?, onNavigate: (String) -> Unit) {
-    Surface(
-        color = Color.White,
-        shadowElevation = 16.dp,
-        tonalElevation = 0.dp,
-        shape = RoundedCornerShape(topStart = 28.dp, topEnd = 28.dp)
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .background(Color.White.copy(alpha = 0.85f))
+            .border(width = 0.5.dp, color = Color(0xFFE5E5EA), shape = RoundedCornerShape(topStart = 24.dp, topEnd = 24.dp))
+            .padding(horizontal = 16.dp)
+            .padding(top = 12.dp, bottom = 24.dp),
+        horizontalArrangement = Arrangement.SpaceAround,
+        verticalAlignment = Alignment.CenterVertically
     ) {
-        Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(horizontal = 10.dp)
-                .padding(top = 12.dp, bottom = 26.dp),
-            horizontalArrangement = Arrangement.SpaceAround,
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            navItems.forEach { item ->
-                val active = isNavActive(item.route, currentRoute)
-                val interaction = remember { MutableInteractionSource() }
-                Row(
-                    modifier = Modifier
-                        .clip(RoundedCornerShape(50))
-                        .background(if (active) IosBlue.copy(alpha = 0.12f) else Color.Transparent)
-                        .clickable(
-                            interactionSource = interaction,
-                            indication = null
-                        ) { onNavigate(item.route) }
-                        .padding(horizontal = if (active) 16.dp else 14.dp, vertical = 9.dp),
-                    verticalAlignment = Alignment.CenterVertically
-                ) {
-                    Icon(
-                        imageVector = item.icon,
-                        contentDescription = item.label,
-                        tint = if (active) IosBlue else Color(0xFF9A9AA0),
-                        modifier = Modifier.size(22.dp)
+        navItems.forEach { item ->
+            val active = isNavActive(item.route, currentRoute)
+            Column(
+                horizontalAlignment = Alignment.CenterHorizontally,
+                modifier = Modifier
+                    .clip(RoundedCornerShape(12.dp))
+                    .clickable { onNavigate(item.route) }
+                    .padding(horizontal = 16.dp, vertical = 4.dp)
+            ) {
+                Icon(
+                    imageVector = item.icon,
+                    contentDescription = item.label,
+                    tint = if (active) IosBlue else Color(0xFF8E8E93),
+                    modifier = Modifier.size(23.dp)
+                )
+                Spacer(Modifier.height(2.dp))
+                Text(
+                    text = item.label,
+                    fontSize = 10.sp,
+                    fontWeight = FontWeight.Bold,
+                    color = if (active) IosBlue else Color(0xFF8E8E93)
+                )
+                if (active) {
+                    Spacer(Modifier.height(2.dp))
+                    Box(
+                        Modifier
+                            .size(4.dp)
+                            .clip(CircleShape)
+                            .background(IosBlue)
                     )
-                    AnimatedVisibility(
-                        visible = active,
-                        enter = fadeIn() + expandHorizontally(),
-                        exit = fadeOut() + shrinkHorizontally()
-                    ) {
-                        Row(verticalAlignment = Alignment.CenterVertically) {
-                            Spacer(Modifier.width(6.dp))
-                            Text(
-                                text = item.label,
-                                fontSize = 12.sp,
-                                fontWeight = FontWeight.Bold,
-                                color = IosBlue
-                            )
-                        }
-                    }
                 }
             }
         }

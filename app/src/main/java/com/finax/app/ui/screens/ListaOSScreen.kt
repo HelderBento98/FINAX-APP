@@ -82,7 +82,7 @@ fun ListaOSScreen(
             modifier = Modifier.fillMaxWidth(),
             shape = RoundedCornerShape(20.dp),
             colors = CardDefaults.cardColors(containerColor = Color.White),
-            elevation = CardDefaults.cardElevation(defaultElevation = 2.dp)
+            elevation = CardDefaults.cardElevation(defaultElevation = 1.dp)
         ) {
             Column(modifier = Modifier.padding(14.dp), verticalArrangement = Arrangement.spacedBy(10.dp)) {
                 OutlinedTextField(
@@ -116,7 +116,7 @@ fun ListaOSScreen(
             modifier = Modifier.fillMaxWidth().weight(1f),
             shape = RoundedCornerShape(24.dp),
             colors = CardDefaults.cardColors(containerColor = Color.White),
-            elevation = CardDefaults.cardElevation(defaultElevation = 2.dp)
+            elevation = CardDefaults.cardElevation(defaultElevation = 1.dp)
         ) {
             Column(modifier = Modifier.fillMaxSize().padding(20.dp)) {
                 Row(

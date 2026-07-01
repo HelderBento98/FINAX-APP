@@ -24,8 +24,6 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.finax.app.ui.theme.BrandGradient
-import com.finax.app.ui.theme.BrandStart
 import com.finax.app.ui.theme.IosBlue
 import com.finax.app.ui.theme.IosSecondaryText
 import com.finax.app.ui.theme.TextPrimary
@@ -44,9 +42,9 @@ fun GradientButton(
         modifier = modifier
             .height(height)
             .alpha(if (enabled) 1f else 0.5f)
-            .shadow(if (enabled) 10.dp else 0.dp, RoundedCornerShape(18.dp), spotColor = BrandStart)
-            .clip(RoundedCornerShape(18.dp))
-            .background(BrandGradient)
+            .shadow(if (enabled) 6.dp else 0.dp, RoundedCornerShape(20.dp), spotColor = IosBlue)
+            .clip(RoundedCornerShape(20.dp))
+            .background(IosBlue)
             .clickable(enabled = enabled) { onClick() },
         contentAlignment = Alignment.Center
     ) {
@@ -74,7 +72,7 @@ fun SubScreenHeader(
         modifier = modifier.fillMaxWidth(),
         shape = RoundedCornerShape(24.dp),
         colors = CardDefaults.cardColors(containerColor = Color.White),
-        elevation = CardDefaults.cardElevation(defaultElevation = 2.dp)
+        elevation = CardDefaults.cardElevation(defaultElevation = 1.dp)
     ) {
         Row(
             modifier = Modifier

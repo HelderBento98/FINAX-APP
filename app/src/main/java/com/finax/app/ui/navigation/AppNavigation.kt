@@ -17,7 +17,7 @@ import androidx.navigation.navArgument
 import com.finax.app.ui.components.BottomNav
 import com.finax.app.ui.components.TopBar
 import com.finax.app.ui.screens.*
-import com.finax.app.ui.theme.AppBgGradient
+import com.finax.app.ui.theme.IosBackground
 import com.finax.app.viewmodel.AppViewModel
 
 @Composable
@@ -47,7 +47,7 @@ fun AppNavigation() {
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(AppBgGradient)
+            .background(IosBackground)
     ) {
         TopBar(userProfile = uiState.userProfile)
 
