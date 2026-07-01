@@ -11,9 +11,12 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -179,16 +182,34 @@ fun ListaOSScreen(
 
 @Composable
 fun RowScope.SortChip(label: String, selected: Boolean, onClick: () -> Unit) {
-    FilterChip(
-        selected = selected,
-        onClick = onClick,
-        label = { Text(label, fontSize = 11.sp, fontWeight = FontWeight.Bold) },
-        modifier = Modifier.weight(1f),
-        colors = FilterChipDefaults.filterChipColors(
-            selectedContainerColor = IosBlue.copy(alpha = 0.1f),
-            selectedLabelColor = IosBlue
+    Box(
+        modifier = Modifier
+            .weight(1f)
+            .height(42.dp)
+            .shadow(
+                elevation = if (selected) 0.dp else 3.dp,
+                shape = RoundedCornerShape(14.dp),
+                spotColor = Color(0x1A000000)
+            )
+            .clip(RoundedCornerShape(14.dp))
+            .background(if (selected) IosBlue.copy(alpha = 0.12f) else Color.White)
+            .border(
+                width = 1.dp,
+                color = if (selected) IosBlue else Color(0xFFEDEDF0),
+                shape = RoundedCornerShape(14.dp)
+            )
+            .clickable { onClick() },
+        contentAlignment = Alignment.Center
+    ) {
+        Text(
+            text = label,
+            fontSize = 13.sp,
+            fontWeight = FontWeight.Bold,
+            color = if (selected) IosBlue else Color(0xFF6B6B70),
+            textAlign = TextAlign.Center,
+            maxLines = 1
         )
-    )
+    }
 }
 
 @Composable
