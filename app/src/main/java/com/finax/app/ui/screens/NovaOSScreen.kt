@@ -71,42 +71,35 @@ fun NovaOSScreen(
             Column(
                 modifier = Modifier
                     .fillMaxSize()
-                    .padding(20.dp)
+                    .verticalScroll(rememberScrollState())
+                    .padding(20.dp),
+                verticalArrangement = Arrangement.spacedBy(16.dp)
             ) {
                 Text(
                     "DADOS DA ORDEM",
                     fontSize = 12.sp, fontWeight = FontWeight.SemiBold, color = IosSecondaryText,
                     letterSpacing = 0.8.sp
                 )
-                Spacer(Modifier.height(12.dp))
 
                 // Form fields
-                Column(
-                    modifier = Modifier
-                        .weight(1f)
-                        .verticalScroll(rememberScrollState()),
-                    verticalArrangement = Arrangement.spacedBy(16.dp)
-                ) {
-                    OSInputField("NOME CLIENTE:", cliente, { cliente = it })
-                    OSInputField("SERVIÇO:", servico, { servico = it })
-                    OSInputField("PREÇO:", preco, { preco = it }, KeyboardType.Decimal)
-                    OSInputField("FORMA DE PAGAMENTO:", formaPagamento, { formaPagamento = it })
-                    OSInputField("CONTATO:", contato, { contato = it }, KeyboardType.Phone)
-                    OSInputField("DATA ORÇAMENTO:", dataOrcamento, { dataOrcamento = it })
-                    OSInputField("VALIDADE ORÇAMENTO:", validadeOrcamento, { validadeOrcamento = it })
-                }
+                OSInputField("NOME CLIENTE:", cliente, { cliente = it })
+                OSInputField("SERVIÇO:", servico, { servico = it })
+                OSInputField("PREÇO:", preco, { preco = it }, KeyboardType.Decimal)
+                OSInputField("FORMA DE PAGAMENTO:", formaPagamento, { formaPagamento = it })
+                OSInputField("CONTATO:", contato, { contato = it }, KeyboardType.Phone)
+                OSInputField("DATA ORÇAMENTO:", dataOrcamento, { dataOrcamento = it })
+                OSInputField("VALIDADE ORÇAMENTO:", validadeOrcamento, { validadeOrcamento = it })
 
                 if (showError) {
                     Text(
                         "Preencha os campos obrigatórios: Cliente, Serviço e Preço.",
-                        color = IosRed, fontSize = 12.sp,
-                        modifier = Modifier.padding(vertical = 6.dp)
+                        color = IosRed, fontSize = 12.sp
                     )
                 }
 
-                Spacer(Modifier.height(16.dp))
+                Spacer(Modifier.height(8.dp))
 
-                // Action buttons
+                // Action buttons (scroll with the content, at the bottom)
                 GradientButton(
                     text = "Finalizar OS",
                     onClick = {
@@ -119,8 +112,6 @@ fun NovaOSScreen(
                     },
                     modifier = Modifier.fillMaxWidth()
                 )
-
-                Spacer(Modifier.height(10.dp))
 
                 Row(horizontalArrangement = Arrangement.spacedBy(12.dp)) {
                     OutlinedButton(
