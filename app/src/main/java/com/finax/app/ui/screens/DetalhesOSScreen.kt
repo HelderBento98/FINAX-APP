@@ -326,9 +326,9 @@ fun PixModal(
                             .padding(12.dp)
                     ) {
                         Column {
-                            Text("Pix Copia e Cola", fontSize = 9.sp, fontWeight = FontWeight.Bold, color = IosSecondaryText, letterSpacing = 0.5.sp)
+                            Text("PIX COPIA E COLA", fontSize = 11.sp, fontWeight = FontWeight.Bold, color = IosSecondaryText, letterSpacing = 0.5.sp)
                             Spacer(Modifier.height(4.dp))
-                            Text(pixCode, fontSize = 11.sp, color = Color(0xFF3C3C43), maxLines = 3)
+                            Text(pixCode, fontSize = 12.sp, color = Color(0xFF3C3C43), maxLines = 3)
                         }
                         IconButton(
                             onClick = {

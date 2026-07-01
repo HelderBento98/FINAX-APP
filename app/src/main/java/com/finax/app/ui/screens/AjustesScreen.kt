@@ -204,17 +204,6 @@ fun AjustesScreen(
                     onClick = { showLogoMenu = true }
                 )
                 ActionRow(
-                    icon = Icons.Default.HeadsetMic,
-                    iconBg = Color(0xFFFFEDD5),
-                    iconTint = Color(0xFFEA580C),
-                    label = "Suporte Técnico",
-                    showDivider = true,
-                    onClick = {
-                        val intent = Intent(Intent.ACTION_VIEW, Uri.parse("https://wa.me/5500000000000"))
-                        context.startActivity(intent)
-                    }
-                )
-                ActionRow(
                     icon = Icons.Default.Shield,
                     iconBg = Color(0xFFDCFCE7),
                     iconTint = Color(0xFF16A34A),

@@ -230,7 +230,7 @@ fun OSListItem(os: OrdemServico, onClick: () -> Unit) {
             Spacer(Modifier.height(2.dp))
             Text(
                 "${os.dataOrcamento} • ${formatCurrency(os.preco)}",
-                fontSize = 10.sp, fontWeight = FontWeight.Bold, color = IosSecondaryText
+                fontSize = 11.sp, fontWeight = FontWeight.Bold, color = IosSecondaryText
             )
         }
         StatusBadge(status = os.status)

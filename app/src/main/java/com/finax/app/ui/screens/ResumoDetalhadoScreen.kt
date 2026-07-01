@@ -157,7 +157,7 @@ fun ResumoDetalhadoScreen(
                                     )
                             )
                             Spacer(Modifier.height(4.dp))
-                            Text(label, fontSize = 8.sp, fontWeight = FontWeight.Bold, color = IosSecondaryText)
+                            Text(label, fontSize = 10.sp, fontWeight = FontWeight.Bold, color = IosSecondaryText, maxLines = 1)
                         }
                     }
                 }
