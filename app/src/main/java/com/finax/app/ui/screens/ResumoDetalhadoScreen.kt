@@ -113,7 +113,7 @@ fun ResumoDetalhadoScreen(
                 label = "Conversão",
                 value = "${taxaConversao.toInt()}%",
                 subtitle = "Aprovação de serviços",
-                color = Color(0xFF9333EA),
+                color = IosBlue,
                 icon = Icons.Default.Percent
             )
         }
@@ -214,8 +214,8 @@ fun ResumoDetalhadoScreen(
             ) {
                 Column(modifier = Modifier.padding(20.dp)) {
                     Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-                        Box(Modifier.size(28.dp).background(Color(0xFFF3E8FF), CircleShape), contentAlignment = Alignment.Center) {
-                            Icon(Icons.Default.EmojiEvents, null, tint = Color(0xFF9333EA), modifier = Modifier.size(14.dp))
+                        Box(Modifier.size(28.dp).background(Color(0xFFEFF6FF), CircleShape), contentAlignment = Alignment.Center) {
+                            Icon(Icons.Default.EmojiEvents, null, tint = IosBlue, modifier = Modifier.size(14.dp))
                         }
                         Text("Serviços mais Rentáveis", fontSize = 13.sp, fontWeight = FontWeight.Bold, color = Color(0xFF1C1C1E))
                     }
@@ -234,10 +234,10 @@ fun ResumoDetalhadoScreen(
                         ) {
                             Row(modifier = Modifier.weight(1f), horizontalArrangement = Arrangement.spacedBy(10.dp), verticalAlignment = Alignment.CenterVertically) {
                                 Box(
-                                    Modifier.size(24.dp).background(Color(0xFFF3E8FF), CircleShape),
+                                    Modifier.size(24.dp).background(Color(0xFFEFF6FF), CircleShape),
                                     contentAlignment = Alignment.Center
                                 ) {
-                                    Text("${idx + 1}", fontSize = 11.sp, fontWeight = FontWeight.Bold, color = Color(0xFF9333EA))
+                                    Text("${idx + 1}", fontSize = 11.sp, fontWeight = FontWeight.Bold, color = IosBlue)
                                 }
                                 Column {
                                     Text(servico, fontSize = 12.sp, fontWeight = FontWeight.Bold, color = Color(0xFF1C1C1E), maxLines = 1, overflow = TextOverflow.Ellipsis)

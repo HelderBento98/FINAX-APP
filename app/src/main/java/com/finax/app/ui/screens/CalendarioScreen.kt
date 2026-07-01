@@ -203,7 +203,7 @@ fun CalendarioScreen(
                                     }
                                     Row(horizontalArrangement = Arrangement.spacedBy(2.dp), modifier = Modifier.height(8.dp)) {
                                         if (hasPago) Box(Modifier.size(4.dp).background(if (isToday) Color.White.copy(alpha = 0.6f) else IosGreen, CircleShape))
-                                        if (hasLembrete) Box(Modifier.size(4.dp).background(if (isToday) Color.White else Color(0xFF9333EA), CircleShape))
+                                        if (hasLembrete) Box(Modifier.size(4.dp).background(if (isToday) Color.White else IosBlue, CircleShape))
                                     }
                                 }
                             }
@@ -227,8 +227,8 @@ fun CalendarioScreen(
                     verticalAlignment = Alignment.CenterVertically
                 ) {
                     Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(10.dp)) {
-                        Box(Modifier.size(32.dp).background(Color(0xFFF3E8FF), CircleShape), contentAlignment = Alignment.Center) {
-                            Icon(Icons.Default.Notifications, null, tint = Color(0xFF9333EA), modifier = Modifier.size(16.dp))
+                        Box(Modifier.size(32.dp).background(Color(0xFFEFF6FF), CircleShape), contentAlignment = Alignment.Center) {
+                            Icon(Icons.Default.Notifications, null, tint = IosBlue, modifier = Modifier.size(16.dp))
                         }
                         Column {
                             Text("Compromissos", fontSize = 16.sp, fontWeight = FontWeight.Bold, color = Color(0xFF1C1C1E))

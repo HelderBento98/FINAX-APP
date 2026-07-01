@@ -250,10 +250,10 @@ fun LembreteItem(lembrete: Lembrete, onDelete: () -> Unit, onWhatsApp: () -> Uni
     ) {
         Box(
             modifier = Modifier
-                .background(Color(0xFFEDE9FE), RoundedCornerShape(8.dp))
+                .background(IosBlue.copy(alpha = 0.12f), RoundedCornerShape(8.dp))
                 .padding(horizontal = 8.dp, vertical = 6.dp)
         ) {
-            Text(lembrete.horario, fontSize = 11.sp, fontWeight = FontWeight.Bold, color = Color(0xFF7C3AED))
+            Text(lembrete.horario, fontSize = 11.sp, fontWeight = FontWeight.Bold, color = IosBlue)
         }
 
         Column(modifier = Modifier.weight(1f)) {
