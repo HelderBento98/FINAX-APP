@@ -10,6 +10,7 @@ import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.*
 import androidx.compose.material3.*
@@ -18,9 +19,11 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
@@ -291,27 +294,23 @@ private fun SettingsField(
     Column(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(bottom = if (isLast) 0.dp else 14.dp)
+            .padding(bottom = if (isLast) 2.dp else 18.dp)
     ) {
         Text(label, fontSize = 11.sp, fontWeight = FontWeight.SemiBold, color = IosSecondaryText, letterSpacing = 0.5.sp)
-        Spacer(Modifier.height(4.dp))
-        OutlinedTextField(
+        Spacer(Modifier.height(6.dp))
+        BasicTextField(
             value = value,
             onValueChange = onValueChange,
             enabled = enabled,
-            modifier = Modifier.fillMaxWidth(),
             singleLine = true,
-            shape = RoundedCornerShape(12.dp),
-            colors = OutlinedTextFieldDefaults.colors(
-                unfocusedBorderColor = IosBorder,
-                focusedBorderColor = IosBlue,
-                unfocusedContainerColor = Color.White,
-                focusedContainerColor = Color.White,
-                disabledBorderColor = Color(0xFFEDEDED),
-                disabledContainerColor = Color(0xFFF7F7F9),
-                disabledTextColor = Color(0xFF1C1C1E)
-            ),
-            textStyle = LocalTextStyle.current.copy(fontSize = 15.sp, fontWeight = FontWeight.Medium)
+            textStyle = TextStyle(fontSize = 16.sp, fontWeight = FontWeight.Medium, color = Color(0xFF1C1C1E)),
+            cursorBrush = SolidColor(IosBlue),
+            modifier = Modifier.fillMaxWidth()
+        )
+        Spacer(Modifier.height(8.dp))
+        HorizontalDivider(
+            color = if (enabled) IosBlue else Color(0xFFE5E5EA),
+            thickness = if (enabled) 1.5.dp else 1.dp
         )
     }
 }
