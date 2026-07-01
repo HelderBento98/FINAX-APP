@@ -163,10 +163,13 @@ fun AppNavigation() {
         BottomNav(
             currentRoute = currentRoute,
             onNavigate = { route ->
+                // Tapping a tab always lands on that tab's root screen (never a
+                // deep sub-screen like a filtered list), so the user can always
+                // get back to the main pages.
                 navController.navigate(route) {
-                    popUpTo(navController.graph.startDestinationId) { saveState = true }
+                    popUpTo(navController.graph.startDestinationId) { saveState = false }
                     launchSingleTop = true
-                    restoreState = true
+                    restoreState = false
                 }
             }
         )

@@ -50,6 +50,7 @@ fun AjustesScreen(
     var showPlanoDialog by remember { mutableStateOf(false) }
     var showLogoMenu by remember { mutableStateOf(false) }
     var showPrivacidadeDialog by remember { mutableStateOf(false) }
+    var editando by remember { mutableStateOf(false) }
 
     val profile = uiState.userProfile
 
@@ -100,37 +101,77 @@ fun AjustesScreen(
             modifier = Modifier.fillMaxWidth(),
             shape = RoundedCornerShape(24.dp),
             colors = CardDefaults.cardColors(containerColor = Color.White),
-            elevation = CardDefaults.cardElevation(defaultElevation = 1.dp)
+            elevation = CardDefaults.cardElevation(defaultElevation = 2.dp)
         ) {
             Column(modifier = Modifier.padding(20.dp)) {
-                Text(
-                    "INFORMAÇÕES",
-                    fontSize = 11.sp, fontWeight = FontWeight.Bold, color = IosSecondaryText,
-                    letterSpacing = 1.sp,
+                Row(
                     modifier = Modifier.fillMaxWidth(),
-                    textAlign = TextAlign.Center
-                )
+                    horizontalArrangement = Arrangement.SpaceBetween,
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    Text(
+                        "INFORMAÇÕES",
+                        fontSize = 11.sp, fontWeight = FontWeight.Bold, color = IosSecondaryText,
+                        letterSpacing = 1.sp
+                    )
+                    if (editando) {
+                        Button(
+                            onClick = {
+                                onUpdateProfile(
+                                    profile.copy(
+                                        nomeEmpresa = nomeEmpresa,
+                                        telefone = telefone,
+                                        dataCriacao = dataCriacao,
+                                        cnpj = cnpj,
+                                        email = email,
+                                        chavePix = chavePix
+                                    )
+                                )
+                                editando = false
+                                Toast.makeText(context, "Informações salvas!", Toast.LENGTH_SHORT).show()
+                            },
+                            modifier = Modifier.height(36.dp),
+                            contentPadding = PaddingValues(horizontal = 16.dp),
+                            shape = RoundedCornerShape(50),
+                            colors = ButtonDefaults.buttonColors(containerColor = IosBlue)
+                        ) {
+                            Icon(Icons.Default.Check, null, modifier = Modifier.size(16.dp))
+                            Spacer(Modifier.width(4.dp))
+                            Text("Salvar", fontSize = 13.sp, fontWeight = FontWeight.Bold)
+                        }
+                    } else {
+                        OutlinedButton(
+                            onClick = { editando = true },
+                            modifier = Modifier.height(36.dp),
+                            contentPadding = PaddingValues(horizontal = 16.dp),
+                            shape = RoundedCornerShape(50),
+                            border = BorderStroke(1.dp, IosBlue),
+                            colors = ButtonDefaults.outlinedButtonColors(contentColor = IosBlue)
+                        ) {
+                            Icon(Icons.Default.Edit, null, modifier = Modifier.size(16.dp))
+                            Spacer(Modifier.width(4.dp))
+                            Text("Editar", fontSize = 13.sp, fontWeight = FontWeight.Bold)
+                        }
+                    }
+                }
                 Spacer(Modifier.height(12.dp))
                 HorizontalDivider(color = Color(0xFFF2F2F7))
                 Spacer(Modifier.height(16.dp))
 
-                SettingsField("NOME DA EMPRESA", nomeEmpresa, { nomeEmpresa = it }) {
-                    onUpdateProfile(profile.copy(nomeEmpresa = nomeEmpresa))
-                }
-                SettingsField("TELEFONE", telefone, { telefone = it }) {
-                    onUpdateProfile(profile.copy(telefone = telefone))
-                }
-                SettingsField("DATA CRIAÇÃO", dataCriacao, { dataCriacao = it }) {
-                    onUpdateProfile(profile.copy(dataCriacao = dataCriacao))
-                }
-                SettingsField("CNPJ", cnpj, { cnpj = it }) {
-                    onUpdateProfile(profile.copy(cnpj = cnpj))
-                }
-                SettingsField("E-MAIL", email, { email = it }) {
-                    onUpdateProfile(profile.copy(email = email))
-                }
-                SettingsField("CHAVE PIX", chavePix, { chavePix = it }, isLast = true) {
-                    onUpdateProfile(profile.copy(chavePix = chavePix))
+                SettingsField("NOME DA EMPRESA", nomeEmpresa, { nomeEmpresa = it }, enabled = editando)
+                SettingsField("TELEFONE", telefone, { telefone = it }, enabled = editando)
+                SettingsField("DATA CRIAÇÃO", dataCriacao, { dataCriacao = it }, enabled = editando)
+                SettingsField("CNPJ", cnpj, { cnpj = it }, enabled = editando)
+                SettingsField("E-MAIL", email, { email = it }, enabled = editando)
+                SettingsField("CHAVE PIX", chavePix, { chavePix = it }, enabled = editando, isLast = true)
+
+                if (!editando) {
+                    Spacer(Modifier.height(4.dp))
+                    Text(
+                        "Toque em \"Editar\" para alterar suas informações.",
+                        fontSize = 11.sp, color = IosSecondaryText, textAlign = TextAlign.Center,
+                        modifier = Modifier.fillMaxWidth()
+                    )
                 }
             }
         }
@@ -140,7 +181,7 @@ fun AjustesScreen(
             modifier = Modifier.fillMaxWidth(),
             shape = RoundedCornerShape(24.dp),
             colors = CardDefaults.cardColors(containerColor = Color.White),
-            elevation = CardDefaults.cardElevation(defaultElevation = 1.dp)
+            elevation = CardDefaults.cardElevation(defaultElevation = 2.dp)
         ) {
             Column {
                 ActionRow(
@@ -244,27 +285,31 @@ private fun SettingsField(
     label: String,
     value: String,
     onValueChange: (String) -> Unit,
-    isLast: Boolean = false,
-    onFocusLost: () -> Unit = {}
+    enabled: Boolean = true,
+    isLast: Boolean = false
 ) {
     Column(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(bottom = if (isLast) 0.dp else 16.dp)
+            .padding(bottom = if (isLast) 0.dp else 14.dp)
     ) {
         Text(label, fontSize = 11.sp, fontWeight = FontWeight.SemiBold, color = IosSecondaryText, letterSpacing = 0.5.sp)
         Spacer(Modifier.height(4.dp))
         OutlinedTextField(
             value = value,
             onValueChange = onValueChange,
+            enabled = enabled,
             modifier = Modifier.fillMaxWidth(),
             singleLine = true,
-            shape = RoundedCornerShape(10.dp),
+            shape = RoundedCornerShape(12.dp),
             colors = OutlinedTextFieldDefaults.colors(
                 unfocusedBorderColor = IosBorder,
                 focusedBorderColor = IosBlue,
-                unfocusedContainerColor = Color(0xFFF9F9F9),
-                focusedContainerColor = Color.White
+                unfocusedContainerColor = Color.White,
+                focusedContainerColor = Color.White,
+                disabledBorderColor = Color(0xFFEDEDED),
+                disabledContainerColor = Color(0xFFF7F7F9),
+                disabledTextColor = Color(0xFF1C1C1E)
             ),
             textStyle = LocalTextStyle.current.copy(fontSize = 15.sp, fontWeight = FontWeight.Medium)
         )

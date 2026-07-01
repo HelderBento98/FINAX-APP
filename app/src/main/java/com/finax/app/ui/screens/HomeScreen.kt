@@ -58,7 +58,7 @@ fun HomeScreen(
             modifier = Modifier.fillMaxWidth(),
             shape = RoundedCornerShape(24.dp),
             colors = CardDefaults.cardColors(containerColor = Color.White),
-            elevation = CardDefaults.cardElevation(defaultElevation = 1.dp)
+            elevation = CardDefaults.cardElevation(defaultElevation = 2.dp)
         ) {
             Column(modifier = Modifier.padding(20.dp)) {
                 Text(
@@ -153,7 +153,7 @@ fun HomeScreen(
                 modifier = Modifier.fillMaxWidth(),
                 shape = RoundedCornerShape(24.dp),
                 colors = CardDefaults.cardColors(containerColor = Color.White),
-                elevation = CardDefaults.cardElevation(defaultElevation = 1.dp)
+                elevation = CardDefaults.cardElevation(defaultElevation = 2.dp)
             ) {
                 Column(modifier = Modifier.padding(20.dp)) {
                     Row(
@@ -200,7 +200,7 @@ fun HomeScreen(
             modifier = Modifier.fillMaxWidth(),
             shape = RoundedCornerShape(24.dp),
             colors = CardDefaults.cardColors(containerColor = Color.White),
-            elevation = CardDefaults.cardElevation(defaultElevation = 1.dp)
+            elevation = CardDefaults.cardElevation(defaultElevation = 2.dp)
         ) {
             Column(modifier = Modifier.padding(20.dp)) {
                 Text(
@@ -299,13 +299,24 @@ fun StatusBadge(status: String) {
         "AGUARDANDO INICIO" -> Triple(IosBlue, "AGENDADO", IosBlue.copy(alpha = 0.1f))
         else -> Triple(IosSecondaryText, status, IosSecondaryText.copy(alpha = 0.1f))
     }
-    Text(
-        text = label,
-        fontSize = 10.sp, fontWeight = FontWeight.SemiBold, color = color,
+    Row(
         modifier = Modifier
             .background(bg, RoundedCornerShape(50))
-            .padding(horizontal = 10.dp, vertical = 4.dp)
-    )
+            .padding(horizontal = 10.dp, vertical = 5.dp),
+        verticalAlignment = Alignment.CenterVertically,
+        horizontalArrangement = Arrangement.spacedBy(5.dp)
+    ) {
+        Box(
+            modifier = Modifier
+                .size(6.dp)
+                .clip(CircleShape)
+                .background(color)
+        )
+        Text(
+            text = label,
+            fontSize = 10.sp, fontWeight = FontWeight.Bold, color = color
+        )
+    }
 }
 
 fun openWhatsApp(context: android.content.Context, phone: String, text: String) {
