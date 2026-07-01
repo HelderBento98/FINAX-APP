@@ -16,6 +16,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.finax.app.ui.components.SubScreenHeader
 import com.finax.app.ui.theme.*
 import com.finax.app.utils.*
 import com.finax.app.viewmodel.AppUiState
@@ -73,29 +74,11 @@ fun ResumoDetalhadoScreen(
         verticalArrangement = Arrangement.spacedBy(12.dp)
     ) {
         // Header
-        Card(
-            modifier = Modifier.fillMaxWidth(),
-            shape = RoundedCornerShape(24.dp),
-            colors = CardDefaults.cardColors(containerColor = Color.White),
-            elevation = CardDefaults.cardElevation(defaultElevation = 1.dp)
-        ) {
-            Row(
-                modifier = Modifier.fillMaxWidth().padding(16.dp),
-                verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.spacedBy(12.dp)
-            ) {
-                IconButton(
-                    onClick = onBack,
-                    modifier = Modifier.size(36.dp).background(Color(0xFFF2F2F7), RoundedCornerShape(50))
-                ) {
-                    Icon(Icons.Default.ArrowBack, null, tint = IosSecondaryText, modifier = Modifier.size(16.dp))
-                }
-                Column {
-                    Text("ANÁLISE FINANCEIRA", fontSize = 10.sp, fontWeight = FontWeight.SemiBold, color = IosSecondaryText, letterSpacing = 0.5.sp)
-                    Text("${MESES.getOrElse(uiState.selectedMonth) { "" }} de ${uiState.selectedYear}", fontSize = 17.sp, fontWeight = FontWeight.Bold, color = Color(0xFF1C1C1E))
-                }
-            }
-        }
+        SubScreenHeader(
+            caption = "ANÁLISE FINANCEIRA",
+            title = "${MESES.getOrElse(uiState.selectedMonth) { "" }} de ${uiState.selectedYear}",
+            onBack = onBack
+        )
 
         // Metric Cards Grid
         Row(horizontalArrangement = Arrangement.spacedBy(10.dp)) {
@@ -140,7 +123,7 @@ fun ResumoDetalhadoScreen(
             modifier = Modifier.fillMaxWidth(),
             shape = RoundedCornerShape(24.dp),
             colors = CardDefaults.cardColors(containerColor = Color.White),
-            elevation = CardDefaults.cardElevation(defaultElevation = 1.dp)
+            elevation = CardDefaults.cardElevation(defaultElevation = 2.dp)
         ) {
             Column(modifier = Modifier.padding(20.dp)) {
                 Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(8.dp)) {
@@ -187,7 +170,7 @@ fun ResumoDetalhadoScreen(
                 modifier = Modifier.fillMaxWidth(),
                 shape = RoundedCornerShape(24.dp),
                 colors = CardDefaults.cardColors(containerColor = Color.White),
-                elevation = CardDefaults.cardElevation(defaultElevation = 1.dp)
+                elevation = CardDefaults.cardElevation(defaultElevation = 2.dp)
             ) {
                 Column(modifier = Modifier.padding(20.dp)) {
                     Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(8.dp)) {
@@ -227,7 +210,7 @@ fun ResumoDetalhadoScreen(
                 modifier = Modifier.fillMaxWidth(),
                 shape = RoundedCornerShape(24.dp),
                 colors = CardDefaults.cardColors(containerColor = Color.White),
-                elevation = CardDefaults.cardElevation(defaultElevation = 1.dp)
+                elevation = CardDefaults.cardElevation(defaultElevation = 2.dp)
             ) {
                 Column(modifier = Modifier.padding(20.dp)) {
                     Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(8.dp)) {

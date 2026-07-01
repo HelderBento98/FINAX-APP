@@ -20,6 +20,7 @@ import androidx.compose.ui.window.Dialog
 import coil.compose.AsyncImage
 import com.finax.app.data.model.OrdemServico
 import com.finax.app.data.model.UserProfile
+import com.finax.app.ui.components.SubScreenHeader
 import com.finax.app.ui.theme.*
 import com.finax.app.utils.*
 
@@ -41,38 +42,25 @@ fun DetalhesOSScreen(
         modifier = Modifier
             .fillMaxSize()
             .padding(horizontal = 20.dp)
-            .padding(bottom = 16.dp)
+            .padding(bottom = 16.dp),
+        verticalArrangement = Arrangement.spacedBy(12.dp)
     ) {
+        SubScreenHeader(
+            caption = "PEDIDO #${os.id}",
+            title = "DETALHES",
+            onBack = onBack
+        )
         Card(
-            modifier = Modifier.fillMaxSize(),
+            modifier = Modifier.fillMaxWidth().weight(1f),
             shape = RoundedCornerShape(24.dp),
             colors = CardDefaults.cardColors(containerColor = Color.White),
-            elevation = CardDefaults.cardElevation(defaultElevation = 1.dp)
+            elevation = CardDefaults.cardElevation(defaultElevation = 2.dp)
         ) {
             Column(
                 modifier = Modifier
                     .fillMaxSize()
                     .padding(24.dp)
             ) {
-                // Header
-                Row(
-                    modifier = Modifier.fillMaxWidth(),
-                    horizontalArrangement = Arrangement.SpaceBetween,
-                    verticalAlignment = Alignment.CenterVertically
-                ) {
-                    IconButton(
-                        onClick = onBack,
-                        modifier = Modifier.size(36.dp).background(Color(0xFFF2F2F7), RoundedCornerShape(50))
-                    ) {
-                        Icon(Icons.Default.ArrowBack, null, tint = IosBlue, modifier = Modifier.size(18.dp))
-                    }
-                    Text("Detalhes do Serviço", fontSize = 16.sp, fontWeight = FontWeight.SemiBold, color = Color(0xFF1C1C1E))
-                    Spacer(Modifier.size(36.dp))
-                }
-
-                Spacer(Modifier.height(16.dp))
-                Text("Pedido #${os.id}", fontSize = 12.sp, fontWeight = FontWeight.SemiBold, color = IosSecondaryText, letterSpacing = 0.8.sp)
-                Spacer(Modifier.height(16.dp))
 
                 // Details
                 Column(

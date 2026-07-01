@@ -18,6 +18,8 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.finax.app.data.model.UserProfile
+import com.finax.app.ui.components.GradientButton
+import com.finax.app.ui.components.SubScreenHeader
 import com.finax.app.ui.theme.*
 import com.finax.app.utils.PdfUtils
 import com.finax.app.utils.todayStr
@@ -44,38 +46,33 @@ fun NovaOSScreen(
         modifier = Modifier
             .fillMaxSize()
             .padding(horizontal = 20.dp)
-            .padding(bottom = 16.dp)
+            .padding(bottom = 16.dp),
+        verticalArrangement = Arrangement.spacedBy(12.dp)
     ) {
+        SubScreenHeader(
+            caption = "NOVA",
+            title = "ORDEM DE SERVIÇO",
+            onBack = onBack,
+            trailing = {
+                TextButton(onClick = {
+                    cliente = ""; servico = ""; preco = ""; formaPagamento = ""; contato = ""
+                    dataOrcamento = todayStr(); validadeOrcamento = "A combinar"
+                }) {
+                    Text("Limpar", color = IosRed, fontWeight = FontWeight.SemiBold, fontSize = 14.sp)
+                }
+            }
+        )
         Card(
-            modifier = Modifier.fillMaxSize(),
+            modifier = Modifier.fillMaxWidth().weight(1f),
             shape = RoundedCornerShape(24.dp),
             colors = CardDefaults.cardColors(containerColor = Color.White),
-            elevation = CardDefaults.cardElevation(defaultElevation = 1.dp)
+            elevation = CardDefaults.cardElevation(defaultElevation = 2.dp)
         ) {
             Column(
                 modifier = Modifier
                     .fillMaxSize()
-                    .padding(24.dp)
+                    .padding(20.dp)
             ) {
-                // Header
-                Row(
-                    modifier = Modifier.fillMaxWidth(),
-                    horizontalArrangement = Arrangement.SpaceBetween,
-                    verticalAlignment = Alignment.CenterVertically
-                ) {
-                    TextButton(onClick = onBack) {
-                        Icon(Icons.Default.ChevronLeft, null, tint = IosBlue, modifier = Modifier.size(20.dp))
-                        Text("Voltar", color = IosBlue, fontWeight = FontWeight.SemiBold, fontSize = 15.sp)
-                    }
-                    TextButton(onClick = {
-                        cliente = ""; servico = ""; preco = ""; formaPagamento = ""; contato = ""
-                        dataOrcamento = todayStr(); validadeOrcamento = "A combinar"
-                    }) {
-                        Text("Limpar", color = IosRed, fontWeight = FontWeight.SemiBold, fontSize = 14.sp)
-                    }
-                }
-
-                Spacer(Modifier.height(8.dp))
                 Text(
                     "DADOS DA ORDEM",
                     fontSize = 12.sp, fontWeight = FontWeight.SemiBold, color = IosSecondaryText,
@@ -110,22 +107,18 @@ fun NovaOSScreen(
                 Spacer(Modifier.height(16.dp))
 
                 // Action buttons
-                Button(
+                GradientButton(
+                    text = "Finalizar OS",
                     onClick = {
                         if (cliente.isEmpty() || servico.isEmpty() || preco.isEmpty()) {
                             showError = true
-                            return@Button
+                        } else {
+                            val precoNum = preco.replace(",", ".").replace(Regex("[^0-9.]"), "").toDoubleOrNull() ?: 0.0
+                            onFinalizar(cliente, servico, precoNum, formaPagamento, contato, dataOrcamento, validadeOrcamento)
                         }
-                        val precoNum = preco.replace(",", ".").replace(Regex("[^0-9.]"), "").toDoubleOrNull() ?: 0.0
-                        onFinalizar(cliente, servico, precoNum, formaPagamento, contato, dataOrcamento, validadeOrcamento)
                     },
-                    modifier = Modifier.fillMaxWidth().height(56.dp),
-                    shape = RoundedCornerShape(20.dp),
-                    colors = ButtonDefaults.buttonColors(containerColor = IosBlue),
-                    elevation = ButtonDefaults.buttonElevation(defaultElevation = 4.dp)
-                ) {
-                    Text("Finalizar OS", fontSize = 16.sp, fontWeight = FontWeight.SemiBold)
-                }
+                    modifier = Modifier.fillMaxWidth()
+                )
 
                 Spacer(Modifier.height(10.dp))
 

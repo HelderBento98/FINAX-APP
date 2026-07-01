@@ -18,6 +18,7 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.finax.app.data.model.OrdemServico
+import com.finax.app.ui.components.SubScreenHeader
 import com.finax.app.ui.theme.*
 import com.finax.app.utils.*
 import com.finax.app.viewmodel.AppUiState
@@ -66,39 +67,22 @@ fun ListaOSScreen(
         verticalArrangement = Arrangement.spacedBy(10.dp)
     ) {
         // Header
-        Card(
-            modifier = Modifier.fillMaxWidth(),
-            shape = RoundedCornerShape(24.dp),
-            colors = CardDefaults.cardColors(containerColor = Color.White),
-            elevation = CardDefaults.cardElevation(defaultElevation = 1.dp)
-        ) {
-            Row(
-                modifier = Modifier.fillMaxWidth().padding(horizontal = 16.dp, vertical = 12.dp),
-                horizontalArrangement = Arrangement.SpaceBetween,
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-                Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(12.dp)) {
-                    IconButton(
-                        onClick = onBack,
-                        modifier = Modifier.size(36.dp).background(Color(0xFFF2F2F7), RoundedCornerShape(50))
-                    ) {
-                        Icon(Icons.Default.ArrowBack, null, tint = IosSecondaryText, modifier = Modifier.size(16.dp))
-                    }
-                    Column {
-                        Text("SERVIÇOS", fontSize = 11.sp, fontWeight = FontWeight.SemiBold, color = IosSecondaryText, letterSpacing = 0.5.sp)
-                        Text(title, fontSize = 17.sp, fontWeight = FontWeight.Bold, color = headerColor)
-                    }
-                }
-                Text(ordensFiltradas.size.toString(), fontSize = 42.sp, fontWeight = FontWeight.Light, color = headerColor)
+        SubScreenHeader(
+            caption = "SERVIÇOS",
+            title = title,
+            accent = headerColor,
+            onBack = onBack,
+            trailing = {
+                Text(ordensFiltradas.size.toString(), fontSize = 40.sp, fontWeight = FontWeight.Light, color = headerColor)
             }
-        }
+        )
 
         // Search and Sort
         Card(
             modifier = Modifier.fillMaxWidth(),
             shape = RoundedCornerShape(20.dp),
             colors = CardDefaults.cardColors(containerColor = Color.White),
-            elevation = CardDefaults.cardElevation(defaultElevation = 1.dp)
+            elevation = CardDefaults.cardElevation(defaultElevation = 2.dp)
         ) {
             Column(modifier = Modifier.padding(14.dp), verticalArrangement = Arrangement.spacedBy(10.dp)) {
                 OutlinedTextField(
@@ -132,7 +116,7 @@ fun ListaOSScreen(
             modifier = Modifier.fillMaxWidth().weight(1f),
             shape = RoundedCornerShape(24.dp),
             colors = CardDefaults.cardColors(containerColor = Color.White),
-            elevation = CardDefaults.cardElevation(defaultElevation = 1.dp)
+            elevation = CardDefaults.cardElevation(defaultElevation = 2.dp)
         ) {
             Column(modifier = Modifier.fillMaxSize().padding(20.dp)) {
                 Row(

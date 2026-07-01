@@ -23,6 +23,7 @@ import androidx.compose.ui.unit.sp
 import com.android.billingclient.api.ProductDetails
 import com.finax.app.billing.BillingManager
 import com.finax.app.billing.formattedPrice
+import com.finax.app.ui.components.GradientButton
 import com.finax.app.ui.theme.*
 
 @Composable
@@ -189,16 +190,24 @@ private fun PlanCard(
                 }
             }
             Spacer(Modifier.height(16.dp))
-            Button(
-                onClick = onClick,
-                enabled = habilitado,
-                modifier = Modifier.fillMaxWidth().height(50.dp),
-                shape = RoundedCornerShape(16.dp),
-                colors = ButtonDefaults.buttonColors(
-                    containerColor = if (destaque) IosBlue else Color(0xFF1C1C1E)
+            if (destaque) {
+                GradientButton(
+                    text = "Assinar $titulo",
+                    onClick = onClick,
+                    enabled = habilitado,
+                    height = 50.dp,
+                    modifier = Modifier.fillMaxWidth()
                 )
-            ) {
-                Text("Assinar $titulo", fontSize = 16.sp, fontWeight = FontWeight.Bold, color = Color.White)
+            } else {
+                Button(
+                    onClick = onClick,
+                    enabled = habilitado,
+                    modifier = Modifier.fillMaxWidth().height(50.dp),
+                    shape = RoundedCornerShape(16.dp),
+                    colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF1C1C1E))
+                ) {
+                    Text("Assinar $titulo", fontSize = 16.sp, fontWeight = FontWeight.Bold, color = Color.White)
+                }
             }
         }
     }

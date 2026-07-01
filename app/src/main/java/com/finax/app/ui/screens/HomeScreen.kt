@@ -20,6 +20,7 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.finax.app.data.model.Lembrete
+import com.finax.app.ui.components.GradientButton
 import com.finax.app.ui.theme.*
 import com.finax.app.utils.*
 import com.finax.app.viewmodel.AppUiState
@@ -133,19 +134,12 @@ fun HomeScreen(
         }
 
         // New OS Button
-        Button(
+        GradientButton(
+            text = "NOVO ORÇAMENTO",
+            icon = Icons.Default.AddCircle,
             onClick = onNavigateToNovaOS,
-            modifier = Modifier
-                .fillMaxWidth()
-                .height(56.dp),
-            shape = RoundedCornerShape(20.dp),
-            colors = ButtonDefaults.buttonColors(containerColor = IosBlue),
-            elevation = ButtonDefaults.buttonElevation(defaultElevation = 4.dp)
-        ) {
-            Icon(Icons.Default.AddCircle, null, modifier = Modifier.size(22.dp))
-            Spacer(Modifier.width(8.dp))
-            Text("NOVO ORÇAMENTO", fontSize = 16.sp, fontWeight = FontWeight.SemiBold)
-        }
+            modifier = Modifier.fillMaxWidth()
+        )
 
         // Today's Reminders
         if (lembretesDeHoje.isNotEmpty()) {
